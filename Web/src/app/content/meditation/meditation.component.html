@@ -1,0 +1,93 @@
+<div fxFlexFill fxLayout="row" style="background:inherit;">
+    <div fxFlex="30%" style="background-color: inherit;">
+        <div>
+            <mat-expansion-panel *ngFor="let course of courses" class="course-theme" (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false" style="margin-bottom: 5px;">
+                <mat-expansion-panel-header style="height: 40px;">
+                    <mat-panel-title>
+                        {{course.title}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{course.description}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <span style="height: 35px; margin-top: 3px;">{{course.content}}</span>
+            </mat-expansion-panel>
+        </div>
+    </div>
+    <div fxFlex style="box-shadow:
+    0 1px 2px rgba(0,1,6,.5); background-color: inherit; height: 78vh; margin-left: 5px;">
+        <mat-horizontal-stepper #stepper style="background-color: inherit">
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Знакомство</ng-template>
+                    Начнем с знакомства!
+                    <mat-form-field>
+                        <mat-label>Ваше имя: </mat-label>
+                        <input matInput placeholder="Имя, фамилия" formControlName="firstCtrl" required>
+                    </mat-form-field>
+                    <div>
+                        <button class="button-main" mat-button matStepperNext>Далее</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Основа</ng-template>
+                        <p>Как вы думаете, что является основой для медитации?</p>
+                        <mat-form-field>
+                        <mat-label>Как вы думаете, что является основой для медитации?</mat-label>
+                        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                    </mat-form-field>
+                    <div>
+                        <button class="button-main" mat-button matStepperPrevious
+                            style="margin-right:15px;">Назад</button>
+                        <button class="button-main" mat-button matStepperNext>Далее</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Основы медитации</ng-template>
+                <p>Таки вы правы!</p>
+                <div>
+                    <button class="button-main" mat-button matStepperPrevious style="margin-right:15px;">Назад</button>
+                    <button class="button-main" mat-button (click)="stepper.reset()">Заново</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Завершение</ng-template>
+                <p>Поздравляем! Вы завершили первый урок</p>
+                <div>
+                    <button class="button-main" mat-button matStepperPrevious style="margin-right:15px;">Назад</button>
+                    <button class="button-main" mat-button (click)="stepper.reset()">Заново</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+
+        <!-- <mat-horizontal-stepper> -->
+        <!-- <mat-step label="Step 1" state="phone">
+                <p>Put down your phones.</p>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Step 2" state="chat">
+                <p>Socialize with each other.</p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Step 3">
+                <p>You're welcome.</p>
+            </mat-step>
+
+            <ng-template matStepperIcon="phone">
+                <mat-icon>call_end</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="chat">
+                <mat-icon>forum</mat-icon>
+            </ng-template>
+        </mat-horizontal-stepper> -->
+    </div>
+</div>

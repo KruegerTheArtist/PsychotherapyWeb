@@ -1,0 +1,23 @@
+.course-theme {
+    //height: 45px ;
+    background-color: rgba(150, 210, 37, 0.9);
+  } 
+  
+  ::ng-deep .mat-expansion-panel-content {
+    background-color: #c0eaa0;
+  }
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 9px 24px 11px !important;
+  }
+  
+
+  .course-theme-item {
+    height: 35px ;
+  }
+  
+  .example-tree ul,
+  .example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
