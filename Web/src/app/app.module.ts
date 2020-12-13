@@ -14,6 +14,7 @@ import { MeditationComponent } from './content/meditation/meditation.component';
 import { PsyComponent } from './content/psy/psy.component';
 import { FinishComponent } from './content/finish/finish.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FlexModule,
     FlexLayoutModule,
     MaterialBlockModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
