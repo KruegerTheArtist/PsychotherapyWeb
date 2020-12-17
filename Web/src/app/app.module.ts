@@ -15,6 +15,8 @@ import { PsyComponent } from './content/psy/psy.component';
 import { FinishComponent } from './content/finish/finish.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './authorization/auth/auth.component';
+import { ForbiddenComponent } from './authorization/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     UserActionsComponent,
     MeditationComponent,
     PsyComponent,
-    FinishComponent
+    FinishComponent,
+    AuthComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
