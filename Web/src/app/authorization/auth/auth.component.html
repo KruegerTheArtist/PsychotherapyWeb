@@ -1,28 +1,40 @@
 <div fxLayoutAlign="center center" style="margin-top: 50px;">
-    <form [formGroup]="model" fxLayout="column" style="height: 300px; width: 450px; box-shadow:
+    <div [formGroup]="model" fxLayout="column" style="height: 360px; width: 450px; box-shadow:
     5px 4px 15px rgba(0,1,6,.5); background-color:rgb(184 255 114 / 35%); border-radius: 5px;">
         <mat-toolbar style="background-color: rgba(83, 137, 212, .85) ; border-radius: 5px 5px 0px 0px;">
             <mat-toolbar-row fxLayoutAlign="center center">
-                <span>Авторизация</span>
+                <span>{{isRegister ? 'Регистрация' : 'Авторизация'}}</span>
             </mat-toolbar-row>
         </mat-toolbar>
-        <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 40px;">
-            <mat-form-field style="width: 300px;">
-                <mat-label>Логин</mat-label>
-                <input matInput formControlName="login">
-            </mat-form-field>
-            <mat-error *ngIf="login.invalid">
-                Обязательное поле
-              </mat-error>
-
-            <mat-form-field style="width: 300px;"> 
-                <mat-label>Пароль</mat-label>
-                <input matInput formControlName="password">
-            </mat-form-field>
-            <mat-error *ngIf="password.invalid">
-                Обязательное поле
-              </mat-error>
+        <div fxLayoutAlign="end end">
+            <span class="standart-text font12" (click)="changeWindow()"
+                style="margin-top: 15px; margin-right: 10px;">{{isRegister ? 'Есть аккаунт? Войди!' : 'Нет аккаунта? Зарегистрируйся!'}}</span>
         </div>
 
-    </form>
+        <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 20px;">
+            <div style="height: 80px;">
+                <mat-form-field style="width: 300px; ">
+                    <mat-label>Логин</mat-label>
+                    <input matInput formControlName="login">
+                </mat-form-field>
+                <mat-error *ngIf="login.invalid">
+                    Обязательное поле
+                </mat-error>
+            </div>
+
+            <div style="height: 80px;">
+                <mat-form-field style="width: 300px; ">
+                    <mat-label>Пароль</mat-label>
+                    <input matInput formControlName="password" type="password">
+                </mat-form-field>
+                <mat-error *ngIf="password.invalid">
+                    Обязательное поле
+                </mat-error>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <button class="button-main" mat-button (click)="auth()">Отправить</button>
+            </div>
+        </div>
+    </div>
 </div>

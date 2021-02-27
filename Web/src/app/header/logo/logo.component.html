@@ -1,6 +1,6 @@
 <!-- Toolbar -->
 <div fxFlexFill fxLayout="row" style="text-align: center;">
-
+  <mat-icon *ngIf="router.url !== '/'" (click)="navigateBack()" class="standart-text">keyboard_backspace</mat-icon>
   <div fxFlex="28%" fxFlexAlign="end" style="margin-bottom: 30px; margin-left: 10px;">
     <div fxLayout="column" fxFlexAlign="start" fxLayoutAlign="start start" class="user-info"
       style=" width: 450px; height: 110px;margin-bottom: 10px;">

@@ -9,14 +9,13 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 })
 export class AuthComponent implements OnInit {
 
+  isRegister = false;
   model = new FormGroup({});
-  login = new FormControl('11', [Validators.required]);
-  password = new FormControl('11', [Validators.required]);
+  login = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required]);
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     this.initialize();
-    console.log(this.model);
-
   }
 
   ngOnInit(): void {
@@ -30,9 +29,16 @@ export class AuthComponent implements OnInit {
   }
 
   async auth() {
-    let eres = await this.authService.login({ login: 'User', password: 'user' });
-    console.log(eres.login);
+    if (this.isRegister) {
+      await this.authService.register({ login: this.model.controls.login.value, password: this.model.controls.password.value });
+    } else {
+      await this.authService.login({ login: this.model.controls.login.value, password: this.model.controls.password.value });
+    }
 
+  }
+
+  changeWindow() {
+    this.isRegister = !this.isRegister;
   }
 
 }
