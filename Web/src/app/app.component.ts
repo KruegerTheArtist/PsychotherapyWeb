@@ -1,4 +1,6 @@
+
 import { Component } from '@angular/core';
+import { ApplicationEventService } from './shared/service/application-event.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Web';
+  public authorize = false;
+  constructor(public appEvent: ApplicationEventService) {
+
+    appEvent.listenTokenEvent().subscribe(data => {
+      this.authorize = data.success;
+    })
+
+  }
 }

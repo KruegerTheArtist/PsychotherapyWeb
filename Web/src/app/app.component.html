@@ -1,13 +1,13 @@
 <!-- Toolbar -->
 <!-- <div style="background: darkkhaki;"> -->
-  <div>
+<div *ngIf="authorize; else authPage">
   <div class="header" style="min-height: 120px; max-height: 100px; min-width: min-content;">
     <app-logo></app-logo>
   </div>
   <div class="navigate-bar" style="min-height: 60px; max-height: 200px; ">
     <app-nav-bar></app-nav-bar>
   </div>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
   <!-- <div fxFlex="20">
     2222222222
   </div>
@@ -28,3 +28,6 @@
   </div> -->
 
 </div>
+<ng-template #authPage> 
+  <app-auth></app-auth>
+</ng-template>

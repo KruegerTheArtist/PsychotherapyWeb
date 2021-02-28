@@ -59,6 +59,18 @@
   .user-info:hover { background: rgba(0, 0, 0, 0.2); }
   .user-info:active { background: rgba(0, 0, 0, 0.493); }
 
+  .standart-text {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0);
+    color: rgba(83, 137, 212, .85);
+    font-weight: 700;
+    transition: .2s ease-in-out;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  .fast-back:hover { background: rgba(0, 0, 0, 0.2); }
+  .fast-back:active { background: rgba(0, 0, 0, 0.493); }
   .course-item-meditation {
     display: inline-block;
     background: rgba(255, 255, 255, 0);
@@ -154,6 +166,10 @@
     0 3px 5px rgba(0,1,6,.5),
     0 0 1px 1px rgba(0,1,6,.2);
    transition: .2s ease-in-out;
+  }
+
+  .font12 {
+    font-size: 12px;
   }
   // h1,
   // h2,

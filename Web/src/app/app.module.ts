@@ -9,11 +9,15 @@ import { LogoComponent } from './header/logo/logo.component';
 import { UserActionsComponent } from './header/user-actions/user-actions.component';
 import { NavBarComponent } from './header/nav-bar/nav-bar..component';
 import { MaterialBlockModule } from './shared/material-block.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MeditationComponent } from './content/meditation/meditation.component';
 import { PsyComponent } from './content/psy/psy.component';
 import { FinishComponent } from './content/finish/finish.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthComponent } from './authorization/auth/auth.component';
+import { ForbiddenComponent } from './authorization/forbidden/forbidden.component';
+import { AccessErrorInterceptor } from './shared/service/access-error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserActionsComponent,
     MeditationComponent,
     PsyComponent,
-    FinishComponent
+    FinishComponent,
+    AuthComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +39,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     FlexModule,
     FlexLayoutModule,
     MaterialBlockModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AccessErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
