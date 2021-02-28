@@ -18,7 +18,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthComponent } from './authorization/auth/auth.component';
 import { ForbiddenComponent } from './authorization/forbidden/forbidden.component';
 import { AccessErrorInterceptor } from './shared/service/access-error-interceptor.service';
-// import { AuthInterceptor } from './shared/core/interfaces/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -45,8 +44,7 @@ import { AccessErrorInterceptor } from './shared/service/access-error-intercepto
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AccessErrorInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AccessErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

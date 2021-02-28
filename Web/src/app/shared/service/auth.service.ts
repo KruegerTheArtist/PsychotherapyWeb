@@ -1,12 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { Observable } from 'rxjs'
 import { Config } from '../model/config.model';
 import { TokenResponse } from '../model/token-response.model';
 
 import { UserShort } from '../model/user-short.model';
 import { User } from '../model/user.model';
 import { ApplicationEventService } from './application-event.service';
+import { ConfigService } from './config.service';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class AuthService {
     private currentUser = new User();
     private settings = new Config();
 
-    constructor(private http: HttpService, private appEvent: ApplicationEventService) {
+    constructor(private http: HttpService, private appEvent: ApplicationEventService, private configService: ConfigService) {
         appEvent.listenErrorEvent().subscribe(async x => {
             let response = await this.refreshToken(this.currentUser.login, this.currentUser.refreshToken);
             if (response.success) {
@@ -35,19 +35,21 @@ export class AuthService {
                 this.token = ''
             }
         })
+        this.init();
+    }
+
+    async init() {
+        this.settings = await this.configService.getSettings()
+        this.headers = new HttpHeaders({ Authorization: 'Bearer ' + this.token });
     }
 
 
     async refreshToken(login: string, refreshToken: string) {
-        const settings = await this.getSettings()
-        const config = new HttpHeaders({ Authorization: 'Bearer ' + this.token });
-        return await this.http.postWithModel(settings.api + '/Auth/Refresh', { login, refreshToken }, config).toPromise();
+        return await this.http.postWithModel(this.settings.api + '/Auth/Refresh', { login, refreshToken }, this.headers).toPromise();
     }
 
     async register(user: UserShort) {
-        const settings = await this.getSettings()
-
-        this.http.postWithModel(settings.api + '/Auth/Register', user).toPromise().then(x => {
+        this.http.postWithModel(this.settings.api + '/Auth/Register', user).toPromise().then(x => {
             localStorage.setItem('access_token', x.accessToken);
             this.currentUser.login = x.login;
             this.currentUser.refreshToken = x.refreshToken;
@@ -58,9 +60,7 @@ export class AuthService {
 
 
     async login(user: UserShort) {
-        const settings = await this.getSettings()
-
-        this.http.postWithModel(settings.api + '/Auth/Authorize', user).toPromise().then(x => {
+        this.http.postWithModel(this.settings.api + '/Auth/Authorize', user).toPromise().then(x => {
             localStorage.setItem('access_token', x.accessToken);
             this.currentUser.login = x.login;
             this.currentUser.refreshToken = x.refreshToken;
@@ -71,10 +71,7 @@ export class AuthService {
 
 
     async logout() {
-        const settings = await this.getSettings()
-        const config = new HttpHeaders({ Authorization: 'Bearer ' + this.token });
-
-        this.http.get<TokenResponse>(settings.api + '/Auth/Logout', config).toPromise().then(x => {
+        this.http.get<TokenResponse>(this.settings.api + '/Auth/Logout', this.headers).toPromise().then(x => {
             localStorage.clear();
             this.appEvent.sendTokenEvent(new TokenResponse());
         })
@@ -84,9 +81,7 @@ export class AuthService {
         return localStorage.getItem('access_token');
     }
 
-    private getSettings(): Promise<Config> {
-        return this.http.get<Config>("./assets/settings.json").toPromise();
-    }
+
 
     /* Пока что нужное*/
     // getUserProfile(id: string): Observable<any> {

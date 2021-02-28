@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserShort } from 'src/app/shared/model/user-short.model';
 import { AuthService } from 'src/app/shared/service/auth.service';
 
 @Component({
@@ -29,10 +30,15 @@ export class AuthComponent implements OnInit {
   }
 
   async auth() {
+    const user = new UserShort({
+      login: this.model.controls.login.value,
+      password: this.model.controls.password.value,
+    })
+    
     if (this.isRegister) {
-      await this.authService.register({ login: this.model.controls.login.value, password: this.model.controls.password.value });
+      await this.authService.register(user);
     } else {
-      await this.authService.login({ login: this.model.controls.login.value, password: this.model.controls.password.value });
+      await this.authService.login(user);
     }
 
   }
